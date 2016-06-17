@@ -1,0 +1,35 @@
+[Unit]
+Description=Hazelcast Mancenter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/hazelcast-mancenter
+
+WorkingDirectory=/usr/share/mancenter
+
+User=mancenter
+Group=mancenter
+
+ExecStart=/bin/java $MANCENTER_OPTS -server -jar /usr/share/mancenter/FNAME $MANCENTER_PORT $CONTEXT_PATH
+
+# Connects standard output to /dev/null
+StandardOutput=null
+
+# Connects standard error to journal
+StandardError=journal
+
+# Disable timeout logic and wait until process is stopped
+TimeoutStopSec=0
+
+# SIGTERM signal is used to stop the Java process
+KillSignal=SIGTERM
+
+# Java process is never killed
+SendSIGKILL=no
+
+# When a JVM receives a SIGTERM signal it exits with code 143
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

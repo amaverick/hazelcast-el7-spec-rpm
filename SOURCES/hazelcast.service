@@ -1,0 +1,39 @@
+[Unit]
+Description=Hazelcast
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/hazelcast
+Environment=CLASSPATH=/etc/hazelcast/:/usr/share/hazelcast/*
+
+WorkingDirectory=/usr/share/hazelcast
+
+User=hazelcast
+Group=hazelcast
+
+ExecStart=/bin/java -server $HZ_JAVA_OPTS $HZ_HEAP_OPTS $HZ_JMX_OPTS  $HZ_CONFIG -classpath $CLASSPATH com.hazelcast.core.server.StartServer
+
+# Connects standard output to /dev/null
+StandardOutput=null
+
+# Connects standard error to journal
+StandardError=journal
+
+# Specifies the maximum file descriptor number that can be opened by this process
+LimitNOFILE=65535
+
+# Disable timeout logic and wait until process is stopped
+TimeoutStopSec=0
+
+# SIGTERM signal is used to stop the Java process
+KillSignal=SIGTERM
+
+# Java process is never killed
+SendSIGKILL=no
+
+# When a JVM receives a SIGTERM signal it exits with code 143
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
