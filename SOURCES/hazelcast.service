@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 EnvironmentFile=/etc/sysconfig/hazelcast
-Environment=CLASSPATH=/etc/hazelcast/:/usr/share/hazelcast/*
+Environment=CLASSPATH=/etc/hazelcast/:/usr/share/hazelcast/libs/*:/usr/share/hazelcast/*
 
 WorkingDirectory=/usr/share/hazelcast
 

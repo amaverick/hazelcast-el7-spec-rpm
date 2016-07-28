@@ -8,8 +8,8 @@
 Summary: Hazelcast package.
 
 Name: hazelcast
-Version: 3.6.3
-Release: 3
+Version: 3.6.4
+Release: 1
 Source0: %{name}-%{version}.tar.gz
 Source1: %{name}.service
 Source2: %{name}.sysconfig
@@ -49,6 +49,7 @@ rm -f bin/*bat
 
 %install
 mkdir -p %{buildroot}%{_prefix}/%{name}
+mkdir -p %{buildroot}%{_prefix}/%{name}/libs
 mkdir -p %{buildroot}%{_prefix}/%{_mancenter}
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_conf_dir}
@@ -109,6 +110,7 @@ fi
 %config(noreplace) %attr(0400,hazelcast,root) %{_conf_dir}/jmxremote.password
 %config(noreplace) %attr(0400,hazelcast,root) %{_conf_dir}/jmxremote.access
 %{_prefix}/%{name}
+%{_prefix}/%{name}/libs
 
 %files mancenter
 %defattr(-,root,root)
